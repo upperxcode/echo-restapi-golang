@@ -45,6 +45,34 @@ func main() {
 		return c.String(http.StatusOK, "Bad data.")
 	})
 
+	e.POST("/courses", func(c echo.Context) error {
+		new_course := new(course)
+		if err := c.Bind(new_course); err != nil {
+			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		}
+		courses = append(courses, *new_course)
+
+		return c.JSON(http.StatusOK, courses)
+	})
+
+	e.PUT("/courses/:id", func(c echo.Context) error {
+		updated_course := new(course)
+		if err := c.Bind(updated_course); err != nil {
+			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		}
+		for i, course := range courses {
+			if strconv.Itoa(course.Id) == c.Param("id") {
+				course = *updated_course
+				courses = append(courses[:i], courses[i+1:]...)
+				courses = append(courses, *updated_course)
+
+				return c.JSON(http.StatusOK, courses)
+			}
+		}
+		return c.String(http.StatusOK, "The indicated course doesn't exist.")
+
+	})
+
 	e.DELETE("/courses/:id", func(c echo.Context) error {
 		for i, courseitem := range courses {
 			if strconv.Itoa(courseitem.Id) == c.Param("id") {
