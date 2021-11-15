@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-
+	"strconv"
 	"github.com/labstack/echo/v4"
 )
 
@@ -11,18 +11,37 @@ type course struct {
 	Name string `json:"name"`
 }
 
-var courses []string
+type allCourses []course
+
+var courses = allCourses{
+	{
+		Id:   1,
+		Name: "Curso Práctico de Go",
+	},
+	{
+		Id:   2,
+		Name: "Curso de Docker",
+	},
+	{
+		Id:   3,
+		Name: "Curso de Git",
+	},
+}
 
 func main() {
 	e := echo.New()
 
 	e.GET("/courses", func(c echo.Context) error {
-		courseOne := course{
-			Id:   1,
-			Name: "Curso Práctico de Go",
-		}
+		return c.JSON(http.StatusOK, courses)
+	})
 
-		return c.JSON(http.StatusOK, courseOne)
+	e.GET("/courses/:id", func(c echo.Context) error {
+		for _, courseitem := range courses {
+			if strconv.Itoa(courseitem.Id) == c.Param("id") {
+				return c.JSON(http.StatusOK, courseitem)
+			}
+		}
+		return c.JSON(http.StatusOK, courses)
 	})
 
 	e.Start(":2000")
