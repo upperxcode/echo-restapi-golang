@@ -76,7 +76,7 @@ func main() {
 	e.DELETE("/courses/:id", func(c echo.Context) error {
 		for i, courseitem := range courses {
 			if strconv.Itoa(courseitem.Id) == c.Param("id") {
-				courses = append(courses[:i], courses[i+1])
+				courses = append(courses[:i], courses[i+1:]...)
 				return c.JSON(http.StatusOK, courses)
 			}
 		}
