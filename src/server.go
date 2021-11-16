@@ -62,7 +62,6 @@ func main() {
 		}
 		for i, course := range courses {
 			if strconv.Itoa(course.Id) == c.Param("id") {
-				course = *updated_course
 				courses = append(courses[:i], courses[i+1:]...)
 				courses = append(courses, *updated_course)
 
