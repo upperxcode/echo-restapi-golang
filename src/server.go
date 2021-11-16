@@ -42,7 +42,7 @@ func main() {
 				return c.JSON(http.StatusOK, courseitem)
 			}
 		}
-		return c.String(http.StatusOK, "Bad data.")
+		return c.String(http.StatusBadRequest, "The indicated course doesn't exist.")
 	})
 
 	e.POST("/courses", func(c echo.Context) error {
@@ -68,7 +68,7 @@ func main() {
 				return c.JSON(http.StatusOK, courses)
 			}
 		}
-		return c.String(http.StatusOK, "The indicated course doesn't exist.")
+		return c.String(http.StatusBadRequest, "The indicated course doesn't exist.")
 
 	})
 
@@ -79,7 +79,7 @@ func main() {
 				return c.JSON(http.StatusOK, courses)
 			}
 		}
-		return c.String(http.StatusOK, "The indicated course doesn't exist.")
+		return c.String(http.StatusBadRequest, "The indicated course doesn't exist.")
 	})
 
 	e.Start(":2000")
