@@ -26,4 +26,4 @@ The documentation, here => <a href="https://echo.labstack.com/guide/">echo.labst
 
 ## Source code
 
-<img src="https://i.ibb.co/k6qQY2w/REST-API-with-Echo-Framework-from-Go.png" alt="REST-API-with-Echo-Framework-from-Go">
+<img src="https://i.ibb.co/8cJ12cS/REST-API-with-Echo-Framework-from-Go-1.png" alt="REST-API-with-Echo-Framework-from-Go-1">
